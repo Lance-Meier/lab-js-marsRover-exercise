@@ -195,3 +195,6 @@ function go (input) {
   }
   console.log(rover.travelLog);
 }
+
+// TEST COMMAND: Uncomment Below to run it
+// go("rflfffff");
