@@ -5,78 +5,123 @@ var rover = {
   travelLog: []
 };
 
-/* Use for future functions
-const marsMap = [
-  ["O", "O", "O", "O", "O", "X", "O", "X", "O", "O"],
-  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-  ["O", "X", "O", "X", "X", "O", "X", "O", "X", "O"],
+/*
+var rover2 = {
+  direction: "N",
+  x: 0,
+  y: 0,
+  travelLog: []
+};
+*/
+
+
+let marsMap = [
+  ["B", "X", "O", "O", "O", "X", "O", "X", "O", "O"],
+  ["O", "X", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "X", "X", "O", "X", "O", "X", "O"],
   ["O", "O", "O", "O", "O", "O", "X", "O", "O", "O"],
   ["O", "O", "X", "O", "O", "O", "X", "X", "O", "O"],
-  ["O", "O", "O", "O", "X", "O", "X", "O", "O", "O"],
-  ["O", "X", "O", "O", "O", "O", "O", "O", "X", "O"],
-  ["O", "O", "O", "X", "O", "O", "X", "O", "O", "A"],
-  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "0"],
-  ["O", "O", "O", "O", "O", "O", "O", "X", "O", "A"]
+  ["O", "O", "O", "O", "X", "O", "X", "O", "X", "O"],
+  ["O", "X", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "X", "O", "O", "X", "O", "X", "M"],
+  ["X", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "X", "O", "M"]
 ];
-*/
 
 function limitCheck () {
   switch (rover.x) {
   case -1:
     rover.x = 0;
-    console.log("Off the grid! The rover can't go there. Try again");
+    console.log("Off the map! The rover can't go there. Try again");
     break;
-  case 11:
-    rover.x = 10;
-    console.log("Off the grid! The rover can't go there. Try again");
+  case 10:
+    rover.x = 9;
+    console.log("Off the map! The rover can't go there. Try again");
     break;
   }
-    switch (rover.y) {
+  switch (rover.y) {
   case -1:
     rover.y = 0;
-    console.log("Off the grid! The rover can't go there. Try again");
+    console.log("Off the map! The rover can't go there. Try again");
     break;
-  case 11:
-    rover.y = 10;
-    console.log("Off the grid! The rover can't go there. Try again");
+  case 10:
+    rover.y = 9;
+    console.log("Off the map! The rover can't go there. Try again");
     break;
   }
 }
-/* functions to be added in:
 
+function rockCheckF () {
+  if (rover.direction === "N" && marsMap[rover.y][rover.x] === "X") {
+      rover.y += 1;
+      marsMap[rover.y][rover.x] = "R";
+      console.log("There's a rock in the way. The rover needs to go around. Try again");
+    } else if (rover.direction === "S" && marsMap[rover.y][rover.x] === "X") {
+      rover.y -= 1;
+      marsMap[rover.y][rover.x] = "R";
+      console.log("There's a rock in the way. The rover needs to go around. Try again");
+    } else if (rover.direction === "E" && marsMap[rover.y][rover.x] === "X") {
+      rover.x -= 1;
+      marsMap[rover.y][rover.x] = "R";
+      console.log("There's a rock in the way. The rover needs to go around. Try again");
+    } else if (rover.direction === "W" && marsMap[rover.y][rover.x] === "X") {
+      rover.x += 1;
+      marsMap[rover.y][rover.x] = "R";
+      console.log("There's a rock in the way. The rover needs to go around. Try again");
+    } else {
+       marsMap[rover.y][rover.x] = "R";
+  }
+}
 
-function rockCheck () {
-  console.log("There's a rock in the way. The rover needs to go around. Try again")
+function rockCheckB () {
+  if (rover.direction === "N" && marsMap[rover.y][rover.x] === "X") {
+      rover.y -= 1;
+      marsMap[rover.y][rover.x] = "R";
+      console.log("There's a rock in the way. The rover needs to go around. Try again");
+    } else if (rover.direction === "S" && marsMap[rover.y][rover.x] === "X") {
+      rover.y += 1;
+      marsMap[rover.y][rover.x] = "R";
+      console.log("There's a rock in the way. The rover needs to go around. Try again");
+    } else if (rover.direction === "E" && marsMap[rover.y][rover.x] === "X") {
+      rover.x += 1;
+      marsMap[rover.y][rover.x] = "R";
+      console.log("There's a rock in the way. The rover needs to go around. Try again");
+    } else if (rover.direction === "W" && marsMap[rover.y][rover.x] === "X") {
+      rover.x -= 1;
+      marsMap[rover.y][rover.x] = "R";
+      console.log("There's a rock in the way. The rover needs to go around. Try again");
+    } else {
+       marsMap[rover.y][rover.x] = "R";
+  }
 }
 
 function martianCheck() {
-  console.log("WOW!!! Who's this little creature? You found a Martian. You rock, Mars Rover! Report back to base.")
+  if (marsMap[rover.y][rover.x] === "M") {
+  rover.x = 0;
+  rover.y = 0;
+  marsMap[rover.y][rover.x] = "B";
+  console.log("WOW!!! Hello little creature! You found a Martian. Great work, Mars Rover! Report back to base.");
+  }
 }
-
-*/
 
 function turnLeft(rover) {
   console.log("turnLeft was called!");
   switch (rover.direction) {
     case "N":
       rover.direction = "W";
-      console.log("Rover is now facing West at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      console.log(`Rover is now facing West at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "S":
       rover.direction = "E";
-      console.log("Rover is now facing East at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      console.log(`Rover is now facing East at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "E":
       rover.direction = "N";
-      console.log("Rover is now facing North at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      console.log(`Rover is now facing North at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "W":
       rover.direction = "S";
-      console.log("Rover is now facing South at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      console.log(`Rover is now facing South at: X:${rover.x}, Y:${rover.y}`);
       break;
     default:
       console.log("Invalid input (must be L, R, F, B) please try again:");
@@ -89,23 +134,19 @@ function turnRight(rover){
   switch (rover.direction) {
     case "N":
       rover.direction = "E";
-      console.log("Rover is now facing East at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      console.log(`Rover is now facing East at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "S":
       rover.direction = "W";
-      console.log("Rover is now facing West at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      console.log(`Rover is now facing West at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "E":
-      rover.direction = "W";
-      console.log("Rover is now facing South at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      rover.direction = "S";
+      console.log(`Rover is now facing South at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "W":
       rover.direction = "N";
-      console.log("Rover is now facing North at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      console.log(`Rover is now facing North at: X:${rover.x}, Y:${rover.y}`);
       break;
     default:
       console.log("Invalid input (must be L, R, F, B) please try again:");
@@ -114,30 +155,35 @@ function turnRight(rover){
 
 function moveForward(rover){
   console.log("moveForward was called!");
+  marsMap[rover.y][rover.x] = "O";
   switch (rover.direction) {
     case "N":
       rover.y -= 1;
       limitCheck ();
-      console.log("Rover is facing North at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      martianCheck ();
+      rockCheckF ();
+      console.log(`Rover is facing North at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "S":
       rover.y += 1;
       limitCheck ();
-      console.log("Rover is facing South at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      martianCheck ();
+      rockCheckF ();
+      console.log(`Rover is facing South at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "E":
       rover.x += 1;
       limitCheck ();
-      console.log("Rover is facing East at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      martianCheck ();
+      rockCheckF ();
+      console.log(`Rover is facing East at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "W":
       rover.x -= 1;
       limitCheck ();
-      console.log("Rover is facing West at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      martianCheck ();
+      rockCheckF ();
+      console.log(`Rover is facing West at: X:${rover.x}, Y:${rover.y}`);
       break;
     default:
       console.log("Invalid input (must be L, R, F, B) please try again.");
@@ -146,30 +192,35 @@ function moveForward(rover){
 
 function moveBackward(rover){
   console.log("moveBackward was called!");
+  marsMap[rover.y][rover.x] = "O";
   switch (rover.direction) {
     case "N":
       rover.y += 1;
       limitCheck ();
-      console.log("Rover is facing North at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      martianCheck ();
+      rockCheckB ();
+      console.log(`Rover is facing North at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "S":
       rover.y -= 1;
       limitCheck ();
-      console.log("Rover is facing South at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      martianCheck ();
+      rockCheckB ();
+      console.log(`Rover is facing South at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "E":
       rover.x -= 1;
       limitCheck ();
-      console.log("Rover is facing East at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      martianCheck ();
+      rockCheckB ();
+      console.log(`Rover is facing East at: X:${rover.x}, Y:${rover.y}`);
       break;
     case "W":
       rover.x += 1;
       limitCheck ();
-      console.log("Rover is facing West at:");
-      console.log(`${rover.x}, ${rover.y}`);
+      martianCheck ();
+      rockCheckB ();
+      console.log(`Rover is facing West at: X:${rover.x}, Y:${rover.y}`);
       break;
     default:
       console.log("Invalid input (must be L, R, F, B) please try again.");
@@ -191,10 +242,19 @@ function go (input) {
         console.log("Invalid input (must be L, R, F, or B) please try again.");
       }
       rover.travelLog.push(`${rover.x}, ${rover.y}`);
+      marsMap[0][0] = "B";
     }
   }
-  console.log(rover.travelLog);
+  console.log(`\nExploration Map: B = Base, R = Rover, X = Rock, M = ?\n`);
+  console.log(marsMap);
 }
 
-// TEST COMMAND: Uncomment Below to run it
-// go("rflfffff");
+console.log("--Mars Rover Mission--\n");
+
+console.log(`Travel History:\n`);
+
+console.log(rover.travelLog);
+
+console.log(`\nAwaiting Command: Forward = F, Backward = B, Turn Left = L, Turn Right = R\n\nType go(""); and enter commands between the "" to get started. Run the command to see the rover move!\n`);
+
+go("");
