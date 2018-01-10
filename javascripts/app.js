@@ -99,8 +99,9 @@ function martianCheck() {
   if (marsMap[rover.y][rover.x] === "M") {
   rover.x = 0;
   rover.y = 0;
-  marsMap[rover.y][rover.x] = "B";
-  console.log("WOW!!! Hello little creature! You found a Martian. Great work, Mars Rover! Report back to base.");
+  console.log(`Travel History:\n`);
+  console.log(rover.travelLog);
+  console.log(`\nWOW!!! Hello little creature! You found a Martian. Great work, Mars Rover! Report back to base.\n`);
   }
 }
 
@@ -250,11 +251,9 @@ function go (input) {
 }
 
 console.log("--Mars Rover Mission--\n");
-
-console.log(`Travel History:\n`);
-
-console.log(rover.travelLog);
-
 console.log(`\nAwaiting Command: Forward = F, Backward = B, Turn Left = L, Turn Right = R\n\nType go(""); and enter commands between the "" to get started. Run the command to see the rover move!\n`);
+console.log(`Rover is at Base:\n`);
+console.log(rover);
 
+//Type in the string:
 go("");
